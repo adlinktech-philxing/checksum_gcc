@@ -95,16 +95,15 @@ int main(int argc, char *argv[])
   //
   // Show result by requested format
   //
-//   fprintf(stderr, "Byte Checksum V1.01\n");
-//   fprintf(stderr, "Copyright PX 2021-\n");
-  printf("Checksum= %08lX\t", Checksum);
+  printf("0x%08lx 0x%lx %s", Checksum, lROMSize, argv[1]);
 
-  printf("Checksum Size= %dMB", (int)(lROMSize>>20));
-  if (lROMSize>>10 == (lROMSize>>20)<<10) {
-    printf("\n");
-  } else { 
-    printf("+%dKB\n", (int)(lROMSize>>10 & ((1<<10)-1)));
-  }
+  // printf("Checksum Size= %dMB", (int)(lROMSize>>20));
+  // if (lROMSize>>10 == (lROMSize>>20)<<10) {
+  //   printf("\n");
+  // } else { 
+  //   printf("+%dKB\n", (int)(lROMSize>>10 & ((1<<10)-1)));
+  // }
+  // printf("%s\n",argv[1]);
   
   fclose(fhSrc);
   return 0;
