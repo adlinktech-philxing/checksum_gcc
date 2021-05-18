@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
   //
   // Show result by requested format
   //
-  printf("0x%08lx 0x%lx %s", Checksum, lROMSize, argv[1]);
+  printf("0x%08lX 0x%lx %s", Checksum, lROMSize, argv[1]);
 
   // printf("Checksum Size= %dMB", (int)(lROMSize>>20));
   // if (lROMSize>>10 == (lROMSize>>20)<<10) {
