@@ -2,16 +2,17 @@
 #include    <stdio.h>
 #include    <fcntl.h>
 //
-//  This utility is designed to display checksum in byte
+//  This utility is designed to display checksum in DWORD
 //
 typedef unsigned char  BYTE;
 typedef unsigned short WORD;
 typedef unsigned long  DWORD;
-#define SIZE_BUFFER	  0x100
+// #define SIZE_BUFFER	  0x100
+#define SIZE_BUFFER	  0x04
 
 void ShowUsage(void)
 {
-  printf("This tool show file checksum by byte.\n\n"
+  printf("This tool show file checksum by DWORD.\n\n"
     "Usage:  Checksum [Dest File] \n"
    "\n");
 }
@@ -62,9 +63,8 @@ int main(int argc, char *argv[])
     exit(-2);
   }
   //
-  // Checksum by byte thru the file
+  // Checksum by DWORD thru the file
   //
-  // _lseek( fhSrc, 0L, SEEK_SET);           /* Set to position 0 */
   fseek( fhSrc, 0L, SEEK_SET);           /* Set to position 0 */
   Checksum=0;
   lCurrentOffset=0;
@@ -84,10 +84,19 @@ int main(int argc, char *argv[])
       // Skip BIOSInfo block if requested & exist
       //
       Checksum += (DWORD)bBuffer[i];
-    //   printf("Checksum = %08lX\n", Checksum);
     }
     lCurrentOffset += SIZE_BUFFER;
   }
+
+  // lCurrentOffset -= SIZE_BUFFER;
+  // fseek( fhSrc, lCurrentOffset, SEEK_SET);           /* Set to position last SIZE_BUFFER block */
+
+  // while ( fread( bBuffer, 1, sizeof(DWORD), fhSrc))
+  // {
+  //   Checksum += (DWORD)bBuffer[i];
+  //   lCurrentOffset+=sizeof(DWORD);
+  // }
+
   Checksum &= 0xffffffff;
   //
   // Set file size
